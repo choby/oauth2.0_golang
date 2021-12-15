@@ -6,57 +6,57 @@ import (
 )
 
 func SetTokenType(tokenType string) {
-	oauth2Server.Config.TokenType = tokenType
+	srv.Config.TokenType = tokenType
 }
 
 func SetAllowGetAccessRequest(allow bool) {
-	oauth2Server.Config.AllowGetAccessRequest = allow
+	srv.Config.AllowGetAccessRequest = allow
 }
 
 func SetAllowedResponseType(types ...oauth2.ResponseType) {
-	oauth2Server.Config.AllowedResponseTypes = types
+	srv.Config.AllowedResponseTypes = types
 }
 
 func SetAllowedGrantType(types ...oauth2.GrantType) {
-	oauth2Server.Config.AllowedGrantTypes = types
+	srv.Config.AllowedGrantTypes = types
 }
 
 func SetClientInfoHandler(handler server.ClientInfoHandler) {
-	oauth2Server.ClientInfoHandler = handler
+	srv.ClientInfoHandler = handler
 }
 
 func SetClientAuthorizedHandler(handler server.ClientAuthorizedHandler) {
-	oauth2Server.ClientAuthorizedHandler = handler
+	srv.ClientAuthorizedHandler = handler
 }
 
 func SetClientScopeHandler(handler server.ClientScopeHandler) {
-	oauth2Server.ClientScopeHandler = handler
+	srv.ClientScopeHandler = handler
 }
 
 func SetUserAuthorizationHandler(handler server.UserAuthorizationHandler) {
-	oauth2Server.UserAuthorizationHandler = handler
+	srv.UserAuthorizationHandler = handler
 }
 
 func SetPasswordAuthorizationHandler(handler server.PasswordAuthorizationHandler) {
-	oauth2Server.PasswordAuthorizationHandler = handler
+	srv.PasswordAuthorizationHandler = handler
 }
 
 func SetRefreshingScopeHandler(handler server.RefreshingScopeHandler) {
-	oauth2Server.RefreshingScopeHandler = handler
+	srv.RefreshingScopeHandler = handler
 }
 
 func SetInternalErrorHandler(handler server.InternalErrorHandler) {
-	oauth2Server.InternalErrorHandler = handler
+	srv.InternalErrorHandler = handler
 }
 
 func SetExtensionFieldsHandler(handler server.ExtensionFieldsHandler) {
-	oauth2Server.ExtensionFieldsHandler = handler
+	srv.ExtensionFieldsHandler = handler
 }
 
 func SetAccessTokenExpHandler(handler server.AccessTokenExpHandler) {
-	oauth2Server.AccessTokenExpHandler = handler
+	srv.AccessTokenExpHandler = handler
 }
 
 func SetAuthorizeScopeHandler(handler server.AuthorizeScopeHandler) {
-	oauth2Server.AuthorizeScopeHandler = handler
+	srv.AuthorizeScopeHandler = handler
 }

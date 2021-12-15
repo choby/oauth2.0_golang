@@ -53,7 +53,7 @@ func HandleTokenVerify(config ...Config) gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		ti, err := oauth2Server.ValidationBearerToken(c.Request)
+		ti, err := srv.ValidationBearerToken(c.Request)
 		if err != nil {
 			cfg.ErrorHandleFunc(c, err)
 			return
