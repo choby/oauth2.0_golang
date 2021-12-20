@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	srv  *server.Server
+	SRV  *server.Server
 	once sync.Once
 )
 
@@ -21,12 +21,12 @@ var (
 func InitServer(manager *manage.Manager) *server.Server {
 	once.Do(func() {
 		// oauth2Server = server.NewServer(server.NewConfig(), manager)
-		srv = server.NewDefaultServer(manager)
-		SetAllowedGrantType("authorization_code", "refresh_token")
-		SetAllowGetAccessRequest(true)
+		SRV = server.NewDefaultServer(manager)
+		SRV.SetAllowedGrantType("authorization_code", "refresh_token")
+		SRV.SetAllowGetAccessRequest(true)
 
 		// 密码授权模式才需要用到这个配置, 这个模式不需要分配授权码,而是直接分配token,通常用于无后端的应用
-		SetPasswordAuthorizationHandler(func(username, password string) (userID string, err error) {
+		SRV.SetPasswordAuthorizationHandler(func(username, password string) (userID string, err error) {
 			if username == "test" && password == "test" {
 				userID = "test"
 			}
@@ -35,15 +35,15 @@ func InitServer(manager *manage.Manager) *server.Server {
 
 		// 这一行很关键,这个方法让oauth框架识别当前用户身份标识(并且可以人为处理登陆状态检验等等)
 		// 具体看userAuthorizeHandler方法实现
-		SetUserAuthorizationHandler(userAuthorizeHandler)
+		SRV.SetUserAuthorizationHandler(userAuthorizeHandler)
 	})
 
-	return srv
+	return SRV
 }
 
 // 处理身份认证请求, the authorization request handling
 func HandleAuthorizeRequest(c *gin.Context) {
-	err := srv.HandleAuthorizeRequest(c.Writer, c.Request)
+	err := SRV.HandleAuthorizeRequest(c.Writer, c.Request)
 	if err != nil {
 		c.AbortWithError(500, err)
 		return
@@ -53,7 +53,7 @@ func HandleAuthorizeRequest(c *gin.Context) {
 
 // 处理token请求
 func HandleTokenRequest(c *gin.Context) {
-	err := srv.HandleTokenRequest(c.Writer, c.Request)
+	err := SRV.HandleTokenRequest(c.Writer, c.Request)
 	if err != nil {
 		c.AbortWithError(500, err)
 		return
