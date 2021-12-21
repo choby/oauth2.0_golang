@@ -1,6 +1,8 @@
 package oauth
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -56,6 +58,7 @@ func HandleTokenVerify(config ...Config) gin.HandlerFunc {
 		ti, err := SRV.ValidationBearerToken(c.Request)
 		if err != nil {
 			cfg.ErrorHandleFunc(c, err)
+			http.Error(c.Writer, err.Error(), http.StatusBadRequest)
 			return
 		}
 

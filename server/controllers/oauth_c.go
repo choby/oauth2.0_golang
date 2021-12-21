@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/choby/oauth2.0_golang/server/libs/request"
-
 	"github.com/choby/oauth2.0_golang/server/oauth"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-session/session"
 )
@@ -92,6 +92,20 @@ func Authorize(c *gin.Context) {
 	store.Delete("ReturnUri")
 	store.Save()
 
-	oauth.HandleAuthorizeRequest(c)
+	err = oauth.SRV.HandleAuthorizeRequest(c.Writer, c.Request)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
 
+}
+
+// 处理token请求
+func HandleTokenRequest(c *gin.Context) {
+	err := oauth.SRV.HandleTokenRequest(c.Writer, c.Request)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
+	c.Abort()
 }

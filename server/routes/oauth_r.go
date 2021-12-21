@@ -21,6 +21,12 @@ func SetAuthRoutes(g *gin.Engine) {
 	g.POST("/login", controllers.Login) // 登录
 	g.GET("/auth", controllers.Auth)    // 授权页面,选择需要授权的权限项
 	g.POST("/authorize", controllers.Authorize)
-	g.POST("/token", oauth.HandleTokenRequest) // 应用程序通过此请求获取token
+	g.POST("/token", controllers.HandleTokenRequest) // 应用程序通过此请求获取token
 
+	api := g.Group("/api")
+	{
+		// 资源接口使用中间件验证token
+		api.Use(oauth.HandleTokenVerify())
+		api.GET("/test", controllers.Test)
+	}
 }
