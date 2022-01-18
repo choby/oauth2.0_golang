@@ -9,7 +9,7 @@ import (
 )
 
 func Test(c *gin.Context) {
-	token, err := oauth.SRV.ValidationBearerToken(c.Request)
+	token, err := oauth.SRV.ValidationBearerToken(c.Request) // 验证token, 可以用这个方法抽象一个action用于资源服务器调用验证token有效性
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return

@@ -18,10 +18,10 @@ func SetAuthRoutes(g *gin.Engine) {
 		})
 	})
 
-	g.POST("/login", controllers.Login) // 登录
-	g.GET("/auth", controllers.Auth)    // 授权页面,选择需要授权的权限项
-	g.POST("/authorize", controllers.Authorize)
+	g.POST("/login", controllers.Login)              // 登录
+	g.GET("/auth", controllers.Auth)                 // 授权页面,选择需要授权的权限项
 	g.POST("/token", controllers.HandleTokenRequest) // 应用程序通过此请求获取token
+	g.POST("/authorize", controllers.Authorize)      //获取授权码 或 implicit方式请求token
 
 	api := g.Group("/api")
 	{
